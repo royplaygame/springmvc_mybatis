@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -135,7 +135,7 @@ li span {
 							<td>${item.price }</td>
 							<td>${item.detail }</td>
 							<td>${item.pic }</td>
-							<td>${fn:substring(item.createtime,0,19) }</td>
+							<td><fmt:formatDate value="${item.createtime}" type="date"/></td>
 							<td><a
 								href="javascript:delconfirm('${item.id }',1)">删除</a></td>
 							<td><a href="addtrain.jsp">新增</a></td>
