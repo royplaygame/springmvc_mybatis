@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hy.ly.po.ItemsCustom;
+import com.hy.ly.po.ItemsQueryVo;
 import com.hy.ly.service.ItemsService;
 
 @Controller
@@ -26,12 +27,11 @@ public class ItemsController {
 	//@RequestMapping("/queryItems.action")
 	//限制http请求方法
 	@RequestMapping(value="/queryItems.action",method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView queryItems(HttpServletRequest request) throws Exception {
+	public ModelAndView queryItems(HttpServletRequest request,ItemsQueryVo itemsQueryVo) throws Exception {
 		
 		String itemsId=request.getParameter("itemsId");
-		System.out.println(itemsId+"=========================");
 		
-		List<ItemsCustom> list = itemsService.findItemsList(null);
+		List<ItemsCustom> list = itemsService.findItemsList(itemsQueryVo);
 
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", list);
