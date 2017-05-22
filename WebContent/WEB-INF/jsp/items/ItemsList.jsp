@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Insert title here</title>
+<title>商品信息列表</title>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/jquery-1.9.0.min.js"></script>
 <script type="text/javascript">
@@ -30,12 +30,12 @@
 					alert("您选择了多条记录，请选择一条记录进行查看！");
 				}
 			}else{
-				window.location.href="<%=request.getContextPath()%>/viewTrainInfo.do?trainNo="+$checked.val()+"&pageNo="+${requestScope.pageNo};
+				window.location.href="<%=request.getContextPath()%>/items/editItems.action?trainNo="+$checked.val()+"&pageNo=1";
 			}
 		});
 		
 		//修改记录
-		$("#editTrain").click(function(){
+		$("#editItems").click(function(){
 			var $checked=$("input:checked");
 			if($checked.length!=1){
 				if($checked.length<1){
@@ -44,7 +44,7 @@
 					alert("您选择了多条记录，请选择一条记录进行修改！");
 				}
 			}else{
-				window.location.href="<%=request.getContextPath()%>/viewForEditTrainInfo.do?trainNo="+$checked.val()+"&pageNo="+${requestScope.pageNo};
+				window.location.href="<%=request.getContextPath()%>/items/editItems.action?itemsId="+$checked.val()+"&pageNo=1";
 			}
 		});
 		
@@ -74,7 +74,7 @@
 		
 		//新增火车班次，并传参数当前页面
 		$('#addTrain').click(function(){
-			var url="<%=request.getContextPath()%>/addtrain.jsp?pageNo="+${requestScope.pageNo };
+			var url="<%=request.getContextPath()%>/addtrain.jsp?pageNo=1";
 			window.location.href =url;
 		});
 		
@@ -101,11 +101,11 @@ li span {
 </style>
 </head>
 <body>
-	<h1>火车信息列表</h1>
+	<h1>商品信息列表</h1>
 	<div id="header">
 		<ul>
 			<li><a href="#" id="viewTrain">查看</a><a href="#" id="addTrain">新增</a><a
-				href="#" id="editTrain">修改</a><a href="#" id="deleTrain">批量删除</a></li>
+				href="#" id="editItems">修改</a><a href="#" id="deleTrain">批量删除</a></li>
 		</ul>
 	</div>
 	<form id="myForm"
