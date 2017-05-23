@@ -5,11 +5,14 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.hy.ly.controller.validation.ValidGroupOne;
+
 public class Items {
     private Integer id;
     //名字1～30字符中间
     //message提示校验出错显示的错误信息
-    @Size(min=1,max=30,message="{items.name.length.error}")
+    //groups表示此校验属于哪个分组,groups可以定义多个
+    @Size(min=1,max=30,message="{items.name.length.error}",groups={ValidGroupOne.class})
     private String name;
 
     private Float price;
