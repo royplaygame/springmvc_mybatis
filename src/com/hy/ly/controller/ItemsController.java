@@ -72,4 +72,13 @@ public class ItemsController {
 		//转发可以传数
 		return "forward:queryItems.action";
 	}
+	
+	@RequestMapping("/deleMoreItems.action")
+	public String deleMoreItems(HttpServletRequest request,@RequestParam(value="itemsIds")Integer[] ids)throws Exception{
+		for(Integer id:ids){
+			//删除商品
+			itemsService.deleteItemsById(id);
+		}
+		return "redirect:queryItems.action";
+	}
 }

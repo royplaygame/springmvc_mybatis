@@ -2,7 +2,6 @@ package com.hy.ly.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hy.ly.mapper.ItemsMapper;
@@ -20,7 +19,8 @@ public class ItemsServiceImpl implements ItemsService {
 	ItemsMapper itemsMapper;
 
 	@Override
-	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) throws Exception {
+	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo)
+			throws Exception {
 		// 通过ItemsMapperCustom查询数据库
 		return itemsMapperCustom.findItemsList(itemsQueryVo);
 	}
@@ -28,12 +28,12 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public ItemsCustom findItemsById(Integer itemsId) throws Exception {
 		Items items = itemsMapper.selectByPrimaryKey(itemsId);
-		//中间对商品信息进行业务处理
-		//.....
-		//返回ItemsCustom
+		// 中间对商品信息进行业务处理
+		// .....
+		// 返回ItemsCustom
 		ItemsCustom itemsCustom = new ItemsCustom();
-		//将Items的属性拷贝到itemsCustom中
-		//BeanUtils.copyProperties(items, itemsCustom);
+		// 将Items的属性拷贝到itemsCustom中
+		// BeanUtils.copyProperties(items, itemsCustom);
 		itemsCustom.setId(items.getId());
 		itemsCustom.setName(items.getName());
 		itemsCustom.setPrice(items.getPrice());
@@ -44,12 +44,17 @@ public class ItemsServiceImpl implements ItemsService {
 	}
 
 	@Override
-	public void updateItemsById(Integer itemsId, ItemsCustom itemsCustom) throws Exception {
-		//添加业务校验,通常在service对关键参数进行校验
-		//较验id是否为空，如果为空抛出异常
+	public void updateItemsById(Integer itemsId, ItemsCustom itemsCustom)
+			throws Exception {
+		// 添加业务校验,通常在service对关键参数进行校验
+		// 较验id是否为空，如果为空抛出异常
 		itemsCustom.setId(itemsId);
-		//使用updateByPrimaryKeyWithBLOBs会根据id更新商品表中的所有字段,包括大文本类型
+		// 使用updateByPrimaryKeyWithBLOBs会根据id更新商品表中的所有字段,包括大文本类型
 		itemsMapper.updateByPrimaryKeyWithBLOBs(itemsCustom);
 	}
 
+	@Override
+	public void deleteItemsById(Integer itemsId) throws Exception {
+		itemsMapper.deleteByPrimaryKey(itemsId);
+	}
 }

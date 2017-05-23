@@ -126,7 +126,7 @@ li span {
 		</ul>
 	</div>
 	<form id="myForm"
-		action="${pageContext.request.contextPath }/deleMoreTrainInfo.do?pageNo=${requestScope.pageNo }"
+		action="${pageContext.request.contextPath }/items/deleMoreItems.action?pageNo=1"
 		method="post">
 		<table width="100%" border="1" id="tb">
 			<tr>
@@ -144,7 +144,7 @@ li span {
 				<c:when test="${!empty requestScope.list }">
 					<c:forEach items="${requestScope.list }" var="item">
 						<tr>
-							<td><input type="checkbox" name="checkboxname"
+							<td><input type="checkbox" name="itemsIds"
 								value="${item.id }" /></td>
 							<td><a
 								href="<%=request.getContextPath()%>/viewTrainInfo.do?trainNo=${item.id }&pageNo=1">${item.id }</a></td>
