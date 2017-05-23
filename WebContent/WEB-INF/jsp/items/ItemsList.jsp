@@ -56,7 +56,7 @@
 						});
 
 		//批量删除记录
-		$("#deleTrain").click(function() {
+		$("#deleteItems").click(function() {
 			var $checked = $("input:checked");
 			if ($checked.length < 1) {
 				alert("请选择一条或者多条记录，再进行删除！");
@@ -79,12 +79,17 @@
 		});
 
 		//新增火车班次，并传参数当前页面
-		$('#addTrain')
-				.click(
+		$('#addTrain').click(
 						function() {
 							var url = "${pageContext.request.contextPath }/addtrain.jsp?pageNo=1";
 							window.location.href = url;
 						});
+		//批量修改商品
+		$('#updateMoreItems').click(
+				function(){
+					var url = "${pageContext.request.contextPath }/items/editItemsQuery.action";
+					window.location.href = url;
+				});
 
 	});
 
@@ -122,7 +127,7 @@ li span {
 	<div id="header">
 		<ul>
 			<li><a href="#" id="viewTrain">查看</a><a href="#" id="addTrain">新增</a><a
-				href="#" id="editItems">修改</a><a href="#" id="deleTrain">批量删除</a></li>
+				href="#" id="editItems">修改</a><a href="#" id="deleteItems">批量删除</a><a href="#" id="updateMoreItems">批量修改</a></li>
 		</ul>
 	</div>
 	<form id="myForm"

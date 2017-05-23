@@ -1,5 +1,7 @@
 package com.hy.ly.po;
 
+import java.util.List;
+
 
 public class ItemsQueryVo {
 	//商品信息
@@ -7,6 +9,17 @@ public class ItemsQueryVo {
 	
 	//商品扩展信息
 	private ItemsCustom itemsCustom;
+	
+	//批量商品信息
+	private List<ItemsCustom> ItemsList;
+
+	public List<ItemsCustom> getItemsList() {
+		return ItemsList;
+	}
+
+	public void setItemsList(List<ItemsCustom> itemsList) {
+		ItemsList = itemsList;
+	}
 
 	public Items getItems() {
 		return items;

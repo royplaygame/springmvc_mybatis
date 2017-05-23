@@ -29,8 +29,6 @@ public class ItemsController {
 	@RequestMapping(value="/queryItems.action",method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView queryItems(HttpServletRequest request,ItemsQueryVo itemsQueryVo) throws Exception {
 		
-		String itemsId=request.getParameter("itemsId");
-		
 		List<ItemsCustom> list = itemsService.findItemsList(itemsQueryVo);
 
 		ModelAndView mv = new ModelAndView();
@@ -72,12 +70,34 @@ public class ItemsController {
 		//转发可以传数
 		return "forward:queryItems.action";
 	}
-	
+	//批量删除
 	@RequestMapping("/deleMoreItems.action")
 	public String deleMoreItems(HttpServletRequest request,@RequestParam(value="itemsIds")Integer[] ids)throws Exception{
 		for(Integer id:ids){
 			//删除商品
 			itemsService.deleteItemsById(id);
+		}
+		return "redirect:queryItems.action";
+	}
+	
+	//批量修改商品页面
+	@RequestMapping(value="/editItemsQuery.action")
+	public ModelAndView editItemsQuery(HttpServletRequest request,ItemsQueryVo itemsQueryVo) throws Exception {
+		
+		List<ItemsCustom> list = itemsService.findItemsList(itemsQueryVo);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list", list);
+		mv.setViewName("items/editItemsQuery");
+		return mv;
+	}
+	//批量修改商品提交
+	//通过ItemsQueryVo接收批量提交的商品信息，把商品信息保存在itemsQueryVo中的itemsList属性中。
+	@RequestMapping("/editItemsAllSubmit.action")
+	public String editItemsAllSubmit(ItemsQueryVo itemsQueryVo)throws Exception{
+		for(ItemsCustom ic:itemsQueryVo.getItemsList()){
+			//调用service修改音品信息
+			itemsService.updateItemsById(ic.getId(), ic);
 		}
 		return "redirect:queryItems.action";
 	}
