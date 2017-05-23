@@ -10,27 +10,28 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- 没有映射到的URL交给默认的web容器中的servlet进行处理 -->
-    <mvc:default-servlet-handler />
-	<!-- <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
-	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources> -->
-	
+	<mvc:default-servlet-handler />
+	<!-- <mvc:resources location="/css/" mapping="/css/**"></mvc:resources> 
+		<mvc:resources location="/js/" mapping="/js/**"></mvc:resources> -->
+
 
 	<!-- 组件扫描，可以扫描controller\service -->
 	<context:component-scan base-package="com.hy.ly.controller"></context:component-scan>
-	
+
 
 	<!-- MVC的注解驱动，可以代替上面的注解映射器 和注解适配器 -->
-	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
-	
+	<mvc:annotation-driven conversion-service="conversionService" validator="validator"></mvc:annotation-driven>
+
 	<!-- 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
 	<!-- 自定义参数绑定 -->
-	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
 				<!-- 日期转换器 -->
@@ -38,4 +39,28 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- 校验器 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<!-- 校验器 -->
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<!-- 配置资源文件，在配置文件中校验错误信息配置，如果不指定，默认使用classpath下的，ValidationMessages.properties -->
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	<!-- 校验错误信息配置文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<!-- 资源配置文件 -->
+		<property name="basenames">
+			<list>
+				<value>classpath:CustomValidationMessage</value>
+			</list>
+		</property>
+		<!-- 资源件编码格式 -->
+		<property name="fileEncodings" value="utf-8"></property>
+		<!-- 资源文件的缓存时间，单位秒 -->
+		<property name="cacheSeconds" value="120"></property>
+	</bean>
+	
 </beans>

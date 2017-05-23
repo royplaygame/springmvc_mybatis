@@ -2,15 +2,21 @@ package com.hy.ly.po;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Items {
     private Integer id;
-
+    //名字1～30字符中间
+    //message提示校验出错显示的错误信息
+    @Size(min=1,max=30,message="{items.name.length.error}")
     private String name;
 
     private Float price;
 
     private String pic;
-
+    //非空的校验
+    @NotNull(message="{ietms.createtime.isNull}")
     private Date createtime;
 
     private String detail;
