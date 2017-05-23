@@ -13,6 +13,7 @@ public class CustomDateConverter implements Converter<String, Date> {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		try{
 			//成功直接返回
+			System.out.println(source+"====================");
 			return sdf.parse(source);
 		}catch(Exception ex){
 			ex.printStackTrace();
