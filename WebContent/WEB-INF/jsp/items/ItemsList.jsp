@@ -117,6 +117,7 @@ li span {
 				name="itemsCustom.name" id="itemsName" /> <input
 				type="submit" value="查询" />
 		</form>
+		<br />
 	</div>
 	<div id="header">
 		<ul>

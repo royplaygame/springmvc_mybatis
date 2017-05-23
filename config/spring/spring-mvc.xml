@@ -9,8 +9,10 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
-	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+	<!-- 没有映射到的URL交给默认的web容器中的servlet进行处理 -->
+    <mvc:default-servlet-handler />
+	<!-- <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
+	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources> -->
 	
 
 	<!-- 组件扫描，可以扫描controller\service -->
