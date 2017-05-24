@@ -1,6 +1,8 @@
 package com.hy.ly.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,6 +69,7 @@ public class ItemsController {
 	//在需要校验的pojo前遍添加@Validated，在需要校验的pojo后面添加BindingResult参数来接收校验出错的信息
 	//注意：如果有多个pojo要校验，@Validated和BindingResult是成对出现的，并且顺序是固定的，一前一后。
 	//@Validated(value={ValidGroupOne.class})指定ValidGroupOne分组的校验
+	//@ModuleAttribute回显到
 	@RequestMapping("/editItemsSubmit.action")
 	public String editItemsSubmit(Model model,HttpServletRequest request,@RequestParam(value="itemsId")Integer id,@Validated(value={ValidGroupOne.class}) ItemsCustom itemsCustom,BindingResult bindingResult) throws Exception{
 		//获取校验错误信息
@@ -74,7 +78,10 @@ public class ItemsController {
 			for(ObjectError obEr:allErrors){
 				System.out.println(obEr.getDefaultMessage());
 			}
+			//将错误消息返回给页面
 			model.addAttribute("allErrors", allErrors);
+			//使用modul将pojo返回给页面
+			//model.addAttribute("itemsCustom", "itemsCustom");
 			//出错生新到商品修改页面
 			return "items/editItems";
 		}
@@ -118,5 +125,17 @@ public class ItemsController {
 			itemsService.updateItemsById(ic.getId(), ic);
 		}
 		return "redirect:queryItems.action";
+	}
+	
+	//itemTypes表示最终将方法的返回值放在request中的key
+	@ModelAttribute("itemTypes")
+	public Map<String,String> getItemTypes(){
+		Map<String,String> itemTypes=new HashMap<String,String>();
+		itemTypes.put("1001", "数码商品");
+		itemTypes.put("1002", "母婴用品");
+		itemTypes.put("1003", "生活用品");
+		itemTypes.put("1004", "体育用品");
+		itemTypes.put("1005", "办公用品");
+		return itemTypes;
 	}
 }

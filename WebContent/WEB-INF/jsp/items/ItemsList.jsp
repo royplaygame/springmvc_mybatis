@@ -118,8 +118,13 @@ li span {
 	<div>
 		<form
 			action="${pageContext.request.contextPath }/items/queryItems.action" method="post">
-			查询条件： <label for="itemsName">商品名称</label> <input type="text"
-				name="itemsCustom.name" id="itemsName" /> <input
+			查询条件： <label for="itemsName">商品名称：</label> <input type="text"
+				name="itemsCustom.name" id="itemsName" /> <br /><br />
+				 商品类型：<select name="itemType">
+					 <c:forEach items="${itemTypes }" var="itemType">
+					 	<option value="${itemType.key }">${itemType.value }</option>
+					 </c:forEach>
+				 </select><input
 				type="submit" value="查询" />
 		</form>
 		<br />
