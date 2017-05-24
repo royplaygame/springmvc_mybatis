@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Insert title here</title>
+<title>修改商品信息</title>
 <link href="<%=request.getContextPath()%>/css/form.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
