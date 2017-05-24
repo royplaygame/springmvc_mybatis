@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hy.ly.controller.validation.ValidGroupOne;
+import com.hy.ly.exception.CustomException;
 import com.hy.ly.po.ItemsCustom;
 import com.hy.ly.po.ItemsQueryVo;
 import com.hy.ly.service.ItemsService;
@@ -58,6 +59,12 @@ public class ItemsController {
 	public ModelAndView editItems(@RequestParam(value="itemsId",required=true,defaultValue="1")Integer itemsId) throws Exception{
 		//调用service查询音品信息
 		ItemsCustom itemsCustom=itemsService.findItemsById(itemsId);
+		
+		//判断查询出来的商品是否为空，根据id查询出来的商品为空
+		if(itemsCustom==null){
+			throw new CustomException("修改的商品信息不存在");
+		}
+		
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("items/editItems");

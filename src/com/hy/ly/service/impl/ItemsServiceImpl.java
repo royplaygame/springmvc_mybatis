@@ -28,18 +28,22 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public ItemsCustom findItemsById(Integer itemsId) throws Exception {
 		Items items = itemsMapper.selectByPrimaryKey(itemsId);
-		// 中间对商品信息进行业务处理
-		// .....
-		// 返回ItemsCustom
-		ItemsCustom itemsCustom = new ItemsCustom();
-		// 将Items的属性拷贝到itemsCustom中
-		// BeanUtils.copyProperties(items, itemsCustom);
-		itemsCustom.setId(items.getId());
-		itemsCustom.setName(items.getName());
-		itemsCustom.setPrice(items.getPrice());
-		itemsCustom.setDetail(items.getDetail());
-		itemsCustom.setCreatetime(items.getCreatetime());
-		itemsCustom.setPic(items.getPic());
+		ItemsCustom itemsCustom=null;
+		if(items!=null){
+			// 中间对商品信息进行业务处理
+			// .....
+			// 返回ItemsCustom
+			itemsCustom = new ItemsCustom();
+			// 将Items的属性拷贝到itemsCustom中
+			// BeanUtils.copyProperties(items, itemsCustom);
+			itemsCustom.setId(items.getId());
+			itemsCustom.setName(items.getName());
+			itemsCustom.setPrice(items.getPrice());
+			itemsCustom.setDetail(items.getDetail());
+			itemsCustom.setCreatetime(items.getCreatetime());
+			itemsCustom.setPic(items.getPic());
+		}
+		
 		return itemsCustom;
 	}
 

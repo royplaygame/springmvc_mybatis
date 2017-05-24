@@ -62,5 +62,6 @@
 		<!-- 资源文件的缓存时间，单位秒 -->
 		<property name="cacheSeconds" value="120"></property>
 	</bean>
-	
+	<!-- 全局异常处理器,只要实现了HandlerExceptionResolver这个接口，就是一个全局的异常处理器 -->
+	<bean class="com.hy.ly.exception.CustomExceptionResolver"></bean>
 </beans>
