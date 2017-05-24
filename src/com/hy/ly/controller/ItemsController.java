@@ -1,8 +1,10 @@
 package com.hy.ly.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hy.ly.controller.validation.ValidGroupOne;
@@ -78,7 +81,8 @@ public class ItemsController {
 	//@Validated(value={ValidGroupOne.class})指定ValidGroupOne分组的校验
 	//@ModuleAttribute回显到
 	@RequestMapping("/editItemsSubmit.action")
-	public String editItemsSubmit(Model model,HttpServletRequest request,@RequestParam(value="itemsId")Integer id,@Validated(value={ValidGroupOne.class}) ItemsCustom itemsCustom,BindingResult bindingResult) throws Exception{
+	public String editItemsSubmit(Model model,HttpServletRequest request,@RequestParam(value="itemsId")Integer id,@Validated(value={ValidGroupOne.class}) ItemsCustom itemsCustom,BindingResult bindingResult
+			,MultipartFile itemsPic) throws Exception{
 		//获取校验错误信息
 		if(bindingResult.hasErrors()){
 			List<ObjectError> allErrors=bindingResult.getAllErrors();
@@ -92,6 +96,27 @@ public class ItemsController {
 			//出错生新到商品修改页面
 			return "items/editItems";
 		}
+		
+		//获取文件原始名称
+		String originalFilename = itemsPic.getOriginalFilename();
+		//上传图片
+		if(itemsPic!=null&& originalFilename!=null&&originalFilename.length()>0){
+			//存储图片的物理路径
+			String picPath="D:\\tmp\\";
+			
+			//新图片名称
+			String newFileName= UUID.randomUUID()+originalFilename.substring(originalFilename.lastIndexOf("."));
+			
+			//新图片
+			File newFile=new File(picPath+newFileName);
+			
+			//将内存中的数据写入磁盘
+			itemsPic.transferTo(newFile);
+			
+			//写入成功需要新的图片名称写入到itemsCustom中
+			itemsCustom.setPic(newFileName);
+		}
+		
 		
 		//调用service修改音品信息
 		itemsService.updateItemsById(id, itemsCustom);

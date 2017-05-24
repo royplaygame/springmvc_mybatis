@@ -45,8 +45,7 @@
     	});
     	//返回火车信息列表
     	$('input[type=reset]').click(function(){
-    		location.href="<%=request.getContextPath()%>
-	/trainList.do?pageNo=${param.pageNo}";
+    		location.href="<%=request.getContextPath()%>/trainList.do?pageNo=${param.pageNo}";
 						});
 
 		//设置历时字段内容
@@ -90,7 +89,7 @@ input {
 		<h1>商品详情</h1>
 		<form id="editform"
 			action="<%=request.getContextPath()%>/items/editItemsSubmit.action?pageNo=1"
-			method="post">
+			method="post" enctype="multipart/form-data">
 			<fieldset>
 				<div>
 					<label for="itemsId">商品ID：</label> <input type="text"
@@ -105,10 +104,14 @@ input {
 					<label for="price">* 商品价格：</label> <input type="text" name="price"
 						id="price" value="${itemsCustom.price }" />
 				</div>
+				<br />
 				<div>
-					<label for="pic">商品图片：</label> <input type="text" name="pic"
-						id="pic" value="${itemsCustom.pic }" />
+					<label for="pic">商品图片：</label> <c:if test="${itemsCustom.pic!=null }">
+					<img src="/pic/${itemsCustom.pic }" alt="" width="100" height="100"/> <br /><br />
+					</c:if>
+					<input type="file" name="itemsPic"/>
 				</div>
+				<br /><br /><br /><br /><br /><br />
 				<div>
 					<label for="detail">商品详情：</label>
 					<textarea name="detail" id="detail" rows="3" cols="30">${itemsCustom.detail }</textarea>
@@ -129,7 +132,7 @@ input {
 		<c:if test="${allErrors!=null }">
 			<c:forEach items="${allErrors }" var="error">
 	        ${error.defaultMessage } <br />
-	        </c:forEach>
+			</c:forEach>
 		</c:if>
 	</center>
 </body>
