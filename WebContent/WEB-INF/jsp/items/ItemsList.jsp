@@ -79,17 +79,19 @@
 		});
 
 		//新增火车班次，并传参数当前页面
-		$('#addTrain').click(
+		$('#addTrain')
+				.click(
 						function() {
 							var url = "${pageContext.request.contextPath }/addtrain.jsp?pageNo=1";
 							window.location.href = url;
 						});
 		//批量修改商品
-		$('#updateMoreItems').click(
-				function(){
-					var url = "${pageContext.request.contextPath }/items/editItemsQuery.action";
-					window.location.href = url;
-				});
+		$('#updateMoreItems')
+				.click(
+						function() {
+							var url = "${pageContext.request.contextPath }/items/editItemsQuery.action";
+							window.location.href = url;
+						});
 
 	});
 
@@ -116,23 +118,31 @@ li span {
 <body>
 	<h1>商品信息列表</h1>
 	<div>
+		当前用户：${username }
+		<c:if test="${username!=null }"> &nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="${pageContext.request.contextPath }/user/logout.action">退出</a>
+		</c:if>
+		<br /> <br />
+	</div>
+	<div>
 		<form
-			action="${pageContext.request.contextPath }/items/queryItems.action" method="post">
+			action="${pageContext.request.contextPath }/items/queryItems.action"
+			method="post">
 			查询条件： <label for="itemsName">商品名称：</label> <input type="text"
-				name="itemsCustom.name" id="itemsName" /> <br /><br />
-				 商品类型：<select name="itemType">
-					 <c:forEach items="${itemTypes }" var="itemType">
-					 	<option value="${itemType.key }">${itemType.value }</option>
-					 </c:forEach>
-				 </select><input
-				type="submit" value="查询" />
+				name="itemsCustom.name" id="itemsName" /> <br /> <br /> 商品类型：<select
+				name="itemType">
+				<c:forEach items="${itemTypes }" var="itemType">
+					<option value="${itemType.key }">${itemType.value }</option>
+				</c:forEach>
+			</select><input type="submit" value="查询" />
 		</form>
 		<br />
 	</div>
 	<div id="header">
 		<ul>
 			<li><a href="#" id="viewTrain">查看</a><a href="#" id="addTrain">新增</a><a
-				href="#" id="editItems">修改</a><a href="#" id="deleteItems">批量删除</a><a href="#" id="updateMoreItems">批量修改</a></li>
+				href="#" id="editItems">修改</a><a href="#" id="deleteItems">批量删除</a><a
+				href="#" id="updateMoreItems">批量修改</a></li>
 		</ul>
 	</div>
 	<form id="myForm"

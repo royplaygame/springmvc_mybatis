@@ -80,4 +80,24 @@
 			<value>10240</value>
 		</property>
 	</bean>
+
+	<!-- 拦截器配置 -->
+	<mvc:interceptors>
+		<!-- 多个拦截器，顺序执行 -->
+		<!-- 登录认证拦截器 -->
+		<mvc:interceptor>
+			<!-- /**表示所有的url,包括所有的子url -->
+			<mvc:mapping path="/**" />
+			<bean class="com.hy.ly.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<!-- /**表示所有的url,包括所有的子url -->
+			<mvc:mapping path="/**" />
+			<bean class="com.hy.ly.interceptor.HandlerInterceptor1"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.hy.ly.interceptor.HandlerInterceptor2"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
